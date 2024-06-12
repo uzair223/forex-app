@@ -8,9 +8,9 @@ Data is pulled from Dukascopy API as `bid_high`, `bid_low`, `ask_high`, `ask_low
 Results are streamed to the client using Server-Sent Events.
 
 ## Screenshots
-![[readme_img/ss_dashboard.png]]
-![[readme_img/ss_indicator.png]]
-![[readme_img/ss_filter.png]]
+![dashboard](readme_img/ss_dashboard.png)
+![indicators](readme_img/ss_indicator.png)
+![economic calendar filters](readme_img/ss_filter.png)
 
 ## Run project
 ```sh
