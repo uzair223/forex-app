@@ -14,6 +14,8 @@ Results are streamed to the client using Server-Sent Events.
 
 ## Run project
 ```sh
-git clone ...
+git clone https://github.com/uzair223/forex-app
+cd forex-app
+npm install
 npm run dev
 ```
