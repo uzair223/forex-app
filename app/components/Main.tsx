@@ -28,11 +28,10 @@ function Main({ instrument, defaultTimeFrame, defaultOfferSide, className, ...pr
   const [offerSide, setOfferSide] = useState(defaultOfferSide);
   const [timeFrame, setTimeFrame] = useState(defaultTimeFrame);
 
-  
   const [isDark, toggleDark] = useDarkTheme();
   const [tz, setTz] = useTimezone()!;
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   const dp = useMemo(
     () => K.DK_INSTRUMENTS.find(({ name }) => name === instrument)?.dp ?? 0,
     [instrument],
@@ -71,28 +70,27 @@ function Main({ instrument, defaultTimeFrame, defaultOfferSide, className, ...pr
   // Loading and serializing indicators
   const [indicators, setIndicators] = useState<IndicatorComponent[]>([]);
   useEffect(() => {
-    const parsed: { build: keyof typeof buildIndicators; buildArgs: any }[] = JSON.parse(
+    const parsed: { id: keyof typeof buildIndicators; buildArgs: any }[] = JSON.parse(
       localStorage.getItem("indicators") ?? "[]",
     );
     setIndicators(
-      parsed.map(({ build, buildArgs }) =>
-        Object.assign(buildIndicators[build]?.(buildArgs), {
-          build,
+      parsed.map(({ id, buildArgs }) => {
+        return Object.assign(buildIndicators[id]?.(buildArgs), {
           buildArgs,
-        }),
-      ),
+        });
+      }),
     );
   }, []);
 
-  const serialize = (x: IndicatorComponent[]) =>
+  const serialize = (x: IndicatorComponent[]) => {
+    console.log(x);
     localStorage.setItem(
       "indicators",
       JSON.stringify(
-        x
-          .filter(({ build }) => typeof build !== "undefined")
-          .map(({ build, buildArgs }) => ({ build, buildArgs })),
+        x.filter(({ id }) => id !== null).map(({ id, buildArgs }) => ({ id, buildArgs })),
       ),
     );
+  };
 
   const [size, setSize] = useState({ width: 1, height: 1 });
   const ref = useRef<HTMLDivElement>(null);
@@ -107,12 +105,12 @@ function Main({ instrument, defaultTimeFrame, defaultOfferSide, className, ...pr
     };
   }, [onResize]);
 
-  const [now, setNow] = useState(time(Date.now(), tz, "%a %H:%M:%S"))
+  const [now, setNow] = useState(time(Date.now(), tz, "%a %H:%M:%S"));
   const timerRef = useRef<NodeJS.Timer>();
   useEffect(() => {
-    timerRef.current = setInterval(() => setNow(time(Date.now(), tz, "%a %H:%M:%S")), 1000)
-    return () => clearInterval(timerRef.current)
-  }, [tz])
+    timerRef.current = setInterval(() => setNow(time(Date.now(), tz, "%a %H:%M:%S")), 1000);
+    return () => clearInterval(timerRef.current);
+  }, [tz]);
 
   return (
     <>

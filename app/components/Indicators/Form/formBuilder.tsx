@@ -61,7 +61,7 @@ interface ComponentProps {
   onAdd: () => void;
 }
 
-function formBuilder<C extends IndicatorComponent, T extends (args: any) => C>(
+function formBuilder<C extends IndicatorComponent, T extends ((args: any) => C)>(
   build: T,
   initialArgs: Parameters<T>[0],
   schema: JsonSchema,
@@ -92,7 +92,6 @@ function formBuilder<C extends IndicatorComponent, T extends (args: any) => C>(
             if (error) return;
             add(
               Object.assign(build(args), {
-                build: build.name,
                 buildArgs: args,
               }),
             );

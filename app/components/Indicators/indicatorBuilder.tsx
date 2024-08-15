@@ -18,12 +18,12 @@ interface BBProps {
 }
 
 export const buildEMA = ({ length, source, props }: AverageProps) =>
-  componentBuilder(ema, `EMA(${length})`, { length, source }, props);
+  componentBuilder(ema, "ema", `EMA(${length})`, { length, source }, props);
 
 export const buildSMA = ({ length, source, props }: AverageProps) =>
-  componentBuilder(sma, `SMA(${length})`, { length, source }, props);
+  componentBuilder(sma, "sma", `SMA(${length})`, { length, source }, props);
 
 export const buildBB = ({ length, n, source, props }: BBProps) =>
-  componentBuilderMulti(boll, `BB(${length},${n})`, { length, n, source }, props);
+  componentBuilderMulti(boll, "bb", `BB(${length},${n})`, { length, n, source }, props);
 
-export default { buildEMA, buildSMA, buildBB };
+export default { ema: buildEMA, sma: buildSMA, bb: buildBB };

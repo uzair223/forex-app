@@ -13,6 +13,7 @@ type MultiIndicator = (data: SimpleCandle[], args: any) => Record<string, Point[
 
 export function componentBuilder<T extends Indicator>(
   fn: T,
+  id: string,
   displayName: string,
   args: Parameters<T>[1],
   props?: React.SVGProps<SVGLineElement>,
@@ -22,15 +23,16 @@ export function componentBuilder<T extends Indicator>(
     const x = useMemo(() => fn(data, args), [data]);
     return <Line data={x} xScale={xScale} yScale={yScale} gradientFill={false} {...props} />;
   };
+  Component.id = id;
   Component.displayName = displayName;
   Component.overlay = overlay;
-  Component.build = undefined;
-  Component.buildArgs = undefined;
+  Component.buildArgs = null as string | null;
   return Component;
 }
 
 export function componentBuilderMulti<T extends MultiIndicator>(
   fn: T,
+  id: string,
   displayName: string,
   args: Parameters<T>[1],
   props?: Record<keyof ReturnType<T>, React.SVGProps<SVGLineElement>>,
@@ -53,10 +55,10 @@ export function componentBuilderMulti<T extends MultiIndicator>(
       </g>
     );
   };
+  Component.id = id;
   Component.displayName = displayName;
   Component.overlay = overlay;
-  Component.build = undefined;
-  Component.buildArgs = undefined;
+  Component.buildArgs = null as string | null;
   return Component;
 }
 
