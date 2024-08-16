@@ -40,16 +40,18 @@ export default function Index() {
       window.removeEventListener("keydown", toggle);
     };
   }, []);
+
   return (
-    <div className="w-screen h-screen text-black bg-zinc-100 transition dark:bg-zinc-900 dark:text-zinc-200 p-2">
-      <div className="w-full h-full grid gap-2 grid-cols-11 grid-rows-1">
-        <div className="flex flex-col gap-2 col-span-2 w-full h-full">
+    <div className="md:h-screen min-w-screen min-h-screen text-black bg-zinc-100 transition dark:bg-zinc-900 dark:text-zinc-200 p-2">
+      <div className="w-full h-full flex flex-col md:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row md:flex-col gap-2 col-span-2 w-full h-full md:basis-[30%] order-last max-h-screen md:max-h-max md:order-none">
           <SessionGroup />
           <EconomicCalendar fetchedAt={fetchedAt} xml={xml} />
         </div>
-        <div className="col-span-5 w-full h-full p-2 bg-white transition dark:bg-zinc-800 rounded-md">
+        <div className="w-full h-[75svh] md:h-full p-2 bg-white transition dark:bg-zinc-800 rounded-md">
           {subscriptions.length ? (
             <Main
+              className="w-full h-full"
               instrument={subscriptions[selected]}
               defaultTimeFrame="15M"
               defaultOfferSide="bid"
@@ -58,7 +60,7 @@ export default function Index() {
             <Spinner />
           )}
         </div>
-        <div className="max-h-screen col-span-4 grid gap-2 lg:grid-cols-2 overflow-auto">
+        <div className="grid gap-2 grid-cols-2 sm:grid-cols-4 md:grid-cols-1 lg:grid-cols-2 md:basis-[40%] overflow-y-auto overflow-x-hidden">
           {subscriptions.map((v, i) => (
             <InstrumentCard
               className={selected === i ? "shadow-md transition dark:shadow-zinc-500/20" : ""}

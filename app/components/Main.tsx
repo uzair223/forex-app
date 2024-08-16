@@ -228,7 +228,7 @@ function Main({ instrument, defaultTimeFrame, defaultOfferSide, className, ...pr
                   <li className="font-mono first:mt-2" key={i}>
                     {component.displayName}
                     <span
-                      className="cursor-pointer text-xs text-zinc-500 px-1 transition hover:text-zinc-600"
+                      className="cursor-pointer text-base text-zinc-500 px-1 transition hover:text-zinc-600"
                       onClick={() => {
                         setIndicators(v => {
                           const x = [...v];
@@ -238,7 +238,7 @@ function Main({ instrument, defaultTimeFrame, defaultOfferSide, className, ...pr
                         });
                       }}
                     >
-                      &#10005;
+                      &#215;
                     </span>
                   </li>
                 ))}
@@ -246,8 +246,8 @@ function Main({ instrument, defaultTimeFrame, defaultOfferSide, className, ...pr
                   className="group/add cursor-pointer mt-1 first:mt-0 px-1"
                   onClick={() => setModalOpen(true)}
                 >
-                  <span className="text-zinc-500 transition group-hover/add:text-zinc-600">
-                    &#128930;
+                  <span className="text-base text-zinc-500 transition group-hover/add:text-zinc-600">
+                    +
                   </span>
                   &nbsp;Add indicators
                 </li>

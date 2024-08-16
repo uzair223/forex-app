@@ -18,19 +18,19 @@ function Modal({ open, onClose, children }: ModalProps) {
 
   return open ? (
     <div
-      className="absolute top-0 left-0 w-screen h-screen bg-zinc-600/50 backdrop-blur-sm z-50 transition duration-500 opacity-0"
+      className="fixed top-0 left-0 w-screen h-screen bg-zinc-600/50 backdrop-blur-sm z-50 transition duration-500 opacity-0 grid place-items-center"
       ref={ref}
     >
-      <div className="absolute w-1/2 h-3/4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="relative h-fit w-full sm:w-4/5 md:w-2/3 min-h-[80%] overflow-y-auto">
         <span
-          className="absolute top-0 right-0 p-2 pt-1 cursor-pointer font-semibold text-sm text-zinc-500 transition hover:text-zinc-600 hover:-translate-y-1"
+          className="absolute top-0 right-0 p-2 pt-1 cursor-pointer font-semibold text-lg text-zinc-500 transition hover:text-zinc-600 hover:-translate-y-1"
           onClick={async () => {
             ref.current?.classList.add("opacity-0");
             await sleep(400);
             onClose();
           }}
         >
-          &#10005;
+          &#215;
         </span>
         {children}
       </div>

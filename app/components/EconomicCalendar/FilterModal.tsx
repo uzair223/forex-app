@@ -129,9 +129,9 @@ function FilterModal({ defaultFilters, items, setView, open, setOpen }: FilterMo
                     });
                   }}
                 >
-                  <img width="20px" height="15px" src={`flags/${code}.svg`} alt={code} />
-                  <span className="font-semibold text-xs text-zinc-500 transition group-hover:text-zinc-600">
-                    &nbsp;&#10005;
+                  <img width="20px" height="15px" src={`flags/${code}.svg`} alt={code} />{" "}
+                  <span className="font-semibold text-zinc-500 transition group-hover:text-zinc-600">
+                    &#215;
                   </span>
                 </div>
               ))
@@ -141,7 +141,7 @@ function FilterModal({ defaultFilters, items, setView, open, setOpen }: FilterMo
           </div>
         </div>
 
-        <div className="relative flex flex-wrap gap-2 p-2 pt-0 overflow-y-auto">
+        <div className="relative flex flex-wrap gap-2 p-2 pt-0 overflow-y-auto max-h-[40svh]">
           <div className="sticky top-0 w-full pb-2 bg-gradient-to-b from-white dark:from-zinc-800 from-60% z-10 -translate-y-1">
             <span>Add countries:</span>
           </div>
@@ -153,9 +153,9 @@ function FilterModal({ defaultFilters, items, setView, open, setOpen }: FilterMo
                 onClick={() => setSelected(v => [...(v ?? []), code])}
               >
                 <img width="20px" height="15px" src={`flags/${code}.svg`} alt={code} />
-                <span>{countries[code as keyof typeof countries]}</span>
-                <span className="font-semibold text-xs text-zinc-500 transition group-hover:text-zinc-600">
-                  &nbsp;&#128930;
+                <span>{countries[code as keyof typeof countries]}</span>{" "}
+                <span className="font-semibold text-zinc-500 transition group-hover:text-zinc-600">
+                  +
                 </span>
               </div>
             ))

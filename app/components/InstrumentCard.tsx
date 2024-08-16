@@ -84,7 +84,7 @@ function InstrumentCard({
   return (
     <div
       className={
-        "relative group bg-white transition dark:bg-zinc-800 rounded-md p-2 cursor-pointer  " +
+        "relative group w-full min-h-[8rem] bg-white transition dark:bg-zinc-800 rounded-md p-2 cursor-pointer " +
           className ?? ""
       }
       {...props}
@@ -146,7 +146,7 @@ function InstrumentCard({
             </span>
           </div>
         </div>
-        <div className="w-full flex-auto overflow-hidden" onClick={onClick} ref={ref}>
+        <div className="w-full h-full flex-auto overflow-hidden" onClick={onClick} ref={ref}>
           <Chart
             data={resampled!}
             options={{

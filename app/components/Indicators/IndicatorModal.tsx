@@ -17,21 +17,21 @@ function IndicatorModal({ open, setOpen, add }: IndicatorModalProps) {
         setOpen(false);
       }}
     >
-      <div className="flex flex-row w-full h-full p-4 bg-white transition dark:bg-zinc-800 rounded-md">
-        <div className="p-2 mr-2 flex-auto">
+      <div className="flex flex-col lg:flex-row w-full h-full p-4 bg-white transition dark:bg-zinc-800 rounded-md">
+        <div className="p-2 mr-2">
           <p className="font-semibold text-lg">Add Indicators</p>
           <ul className="divide divide-y transition dark:divide-zinc-600">
             {forms.map((Component, i) => (
               <li key={i} className="group p-1" onClick={() => setSelected(i)}>
                 {Component.displayName}
-                <span className="absolute text-zinc-400 opacity-0 -translate-x-4 transition group-hover:opacity-100 group-hover:translate-x-0">
-                  &nbsp;&#128930;
+                <span className="ml-2 absolute text-sm text-zinc-400 opacity-0 -translate-x-4 transition group-hover:opacity-100 group-hover:translate-x-0 rotate-45">
+                  &nbsp;&#10005;
                 </span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="p-4 mt-4 w-1/2 rounded-md border transition dark:border-none dark:bg-zinc-700/10">
+        <div className="p-4 mt-4 rounded-md border transition dark:border-none dark:bg-zinc-700/10 flex-1">
           {(() => {
             if (typeof selected === "undefined") return;
             const Component = forms[selected];

@@ -48,6 +48,8 @@ function EconomicCalendar({ fetchedAt, xml }: EconomicCalendarProps) {
   const [view, setView] = useState<ICalendarItem[]>([]);
   const [closest, setClosest] = useState<number>();
   const [modalOpen, setModalOpen] = useState(false);
+
+  const scrollableRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -114,9 +116,9 @@ function EconomicCalendar({ fetchedAt, xml }: EconomicCalendarProps) {
   }, [view]);
 
   useEffect(() => {
-    if (!ref.current || closest === undefined) return;
+    if (!ref.current || !scrollableRef.current || closest === undefined) return;
     const child = ref.current.children[closest];
-    child?.scrollIntoView(true);
+    scrollableRef.current.scrollTo({ top: child?.scrollTop ?? scrollableRef.current.scrollHeight });
   }, [ref, closest]);
 
   return xml.length ? (
@@ -128,26 +130,27 @@ function EconomicCalendar({ fetchedAt, xml }: EconomicCalendarProps) {
         open={modalOpen}
         setOpen={setModalOpen}
       />
-      <div className="h-full bg-white transition dark:bg-zinc-800 rounded-md overflow-hidden">
-        <div className="relative px-2 h-full overflow-y-auto">
-          <div className="inline-flex justify-between sticky top-0 w-full bg-gradient-to-b from-white dark:from-zinc-800 from-60% py-2 z-10">
-            <span className="font-semibold leading-tight ml-2">Economic Calendar</span>
-            <FilterIcon
-              className="cursor-pointer  fill-zinc-500 transition hover:fill-zinc-600 hover:-translate-y-1"
-              onClick={() => setModalOpen(true)}
-            />
-          </div>
-          <div className="divide-y divide-solid z-0 transition dark:divide-zinc-600" ref={ref}>
-            {view.length ? (
-              view.map((d, i) => <CalendarItem key={i} d={d} tz={tz} />)
-            ) : (
-              <div className="flex justify-center items-center w-full h-full text-zinc-400">
-                No items to show...
-              </div>
-            )}
-          </div>
-          <div className="sticky bottom-0 w-full h-4 bg-gradient-to-t from-white dark:from-zinc-800 from-50%" />
+      <div
+        className="max-h-[50svh] md:max-h-full bg-white transition dark:bg-zinc-800 rounded-md overflow-y-auto"
+        ref={scrollableRef}
+      >
+        <div className="inline-flex justify-between sticky top-0 w-full bg-gradient-to-b from-white dark:from-zinc-800 from-60% py-2 z-10">
+          <span className="font-semibold leading-tight ml-4">Economic Calendar</span>
+          <FilterIcon
+            className="cursor-pointer  fill-zinc-500 transition hover:fill-zinc-600 hover:-translate-y-1"
+            onClick={() => setModalOpen(true)}
+          />
         </div>
+        <div className="p-2 divide-y divide-solid z-0 transition dark:divide-zinc-600" ref={ref}>
+          {view.length ? (
+            view.map((d, i) => <CalendarItem key={i} d={d} tz={tz} />)
+          ) : (
+            <div className="flex justify-center items-center w-full h-full text-zinc-400">
+              No items to show...
+            </div>
+          )}
+        </div>
+        <div className="sticky bottom-0 w-full h-4 bg-gradient-to-t from-white dark:from-zinc-800 from-50%" />
       </div>
     </>
   ) : (
