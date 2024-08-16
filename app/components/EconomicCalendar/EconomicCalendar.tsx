@@ -117,8 +117,16 @@ function EconomicCalendar({ fetchedAt, xml }: EconomicCalendarProps) {
 
   useEffect(() => {
     if (!ref.current || !scrollableRef.current || closest === undefined) return;
+    const scrollable = scrollableRef.current;
     const child = ref.current.children[closest];
-    scrollableRef.current.scrollTo({ top: child?.scrollTop ?? scrollableRef.current.scrollHeight });
+    if (!child) {
+      scrollable.scrollTop = scrollable.scrollHeight;
+      return;
+    }
+    const scrollableRect = scrollable.getBoundingClientRect();
+    const targetRect = child.getBoundingClientRect();
+    const scrollTop = targetRect.top - scrollableRect.top + scrollable.scrollTop;
+    scrollable.scrollTop = scrollTop;
   }, [ref, closest]);
 
   return xml.length ? (
